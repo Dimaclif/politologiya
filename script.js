@@ -97,3 +97,9 @@ function scrollRight() {
   document.querySelectorAll('.animate-on-scroll').forEach(el => {
     observer.observe(el);
   });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.text1, .frame12, .photo').forEach(el => {
+      el.classList.add('animate-on-scroll');
+    });
+  });
