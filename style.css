@@ -1,0 +1,616 @@
+@keyframes zoomFadeIn {
+    0% { opacity: 0; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  .zoom-fade {
+    animation: zoomFadeIn 0.6s ease forwards;
+  }
+
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(182, 182, 182);
+    outline: none; /* убираем рамку при фокусе */
+    user-select: none; /* запрет выделения текста */
+    scroll-behavior: smooth;
+}
+body {
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  
+  body.loaded {
+    opacity: 1;
+    transform: scale(1);
+  }
+/* Убираем scrollbars */
+body, .container, .decade1, .decade2, .decade3, .decade4 {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+  }
+  
+  body::-webkit-scrollbar,
+  .container::-webkit-scrollbar,
+  .decade1::-webkit-scrollbar,
+  .decade2::-webkit-scrollbar,
+  .decade3::-webkit-scrollbar,
+  .decade4::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
+
+.bckgrnd-main-img{
+    position: relative;/*нужно, чтобы псевдоэлемент ::before (дальше) позиционировался относительно .bck-img.*/
+    background-image: url("img/background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;/*убирает всё, что может вылезать за границы*/
+}
+.header-line{
+    display: flex;
+    max-width: 1400px;
+    font-family: "JetBrains Mono", monospace;
+    justify-content: space-between;
+    margin:20px auto;
+}
+.header-logo{
+    display: flex;
+    justify-content:left;
+}
+.logo{
+    width: 160px;
+    height: 130px;
+}
+.header-another{
+    display: flex;
+    flex-direction: row;
+    gap:54px;
+    font-size:16px;
+    align-items:flex-start;
+    margin:20px -10px;
+}
+.atext{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+.selecter{
+    background-color:rgb(0, 0, 0, 0.5);
+    border-radius: 5px;
+    border:1px solid #545454;
+    color:#ffff;
+    padding:7px 16px 7px 16px;
+}
+.menu{
+    display:flex;
+    justify-content:flex-end;
+    margin:200px 50px;
+}
+
+/*боковое меню*/
+/* Панель */
+.side-panel {
+    position: fixed;
+    top: 0;
+    right: -40%;
+    width: 40%;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+    z-index: 999;
+    transition: right 0.3s ease-in-out;
+    padding: 30px;
+}
+
+/* Контент внутри панели */
+.panel-content {
+    font-family: "JetBrains Mono", monospace;
+    color: #000;
+}
+
+/* Размытие заднего фона */
+
+.side-panel {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 100%;
+    background-image:url("img/menu-bckrgnd.png");
+    box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+    z-index: 999;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    padding: 30px;
+}
+
+/* Активное состояние */
+.side-panel.active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.blur-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.blur-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/*стилизация меню*/
+.panel-content{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.AIU{
+    font-size: 44px;
+    color: #fff;
+    margin-top:-20px;
+}
+.all-years-menu{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+}
+.menu-years{
+    display: flex;
+    justify-content: flex-start;
+    text-decoration: none;
+    gap:170px;
+    margin-left:-10px;
+    color: #fff;
+    font-size: 26px;
+    align-items: center;
+    padding:10px 200px 10px 10px;
+    transition:background-color 0.3s linear;
+}
+.menu-years:hover{
+    background-color:rgb(148, 148, 148);
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.close{
+    background-color:rgb(0, 0, 0, 0.5);
+    border-radius: 5px;
+    border:1px solid #545454;
+    color:#ffff;
+    padding:7px 16px 7px 16px;
+    transition:background-color, transform 0.3 linear;
+}
+.close:hover{
+    transform: scale(1.05);
+    background-color:rgba(119, 119, 119, 0.5) ;
+}
+
+
+
+.year-content {
+    position: relative;
+    padding: 30px;
+    color: white;
+    font-size: 22px;
+    font-family: "JetBrains Mono", monospace;
+}
+
+.year-text {
+    display: none;
+    animation: fadeIn 0.6s ease;
+    text-align: center;
+    font-size: 18px;
+}
+.year-text.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/*sections*/
+.bck-img{
+    position: relative;/*нужно, чтобы псевдоэлемент ::before (дальше) позиционировался относительно .bck-img.*/
+    background-image: url("img/frame1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;/*убирает всё, что может вылезать за границы*/
+}
+.Htext{
+    font-size:50px;
+    color: #fff;
+    align-items: center;
+    text-align: center;
+    margin-top: 40px;
+}
+.sect-left{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-top: 100px;
+}
+.menu-year{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 20px; /* уменьшил отступ между иконкой и текстом */
+    color: #fff;
+    font-size: 26px;
+    padding: 10px 50px; /* добавил отступы справа-слева */
+    transition: background-color 0.3s linear;
+    width: fit-content;
+    border-radius: 5px;
+    transition:background-color 0.3s linear;
+      
+}
+.menu-year:hover{
+    background-color:rgb(148, 148, 148);
+}
+.sect-left {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    align-items: flex-start; /* выравниваем элементы по левому краю */
+    margin-left: 20px; /* одинаковый отступ для всех элементов */
+    margin-top: 50px;
+}
+.select-sec{
+    display: flex;
+    flex-direction: column;
+}
+/* Для текста снизу */
+.inf-text {
+    color: #fff;
+    margin-right: 80px; /* такой же как у меню */
+    font-size: 16px;
+    text-align: end;
+    font-family: "Inknut Antiqua", serif;
+}
+
+/*2frame*/
+.bck2-img{
+    position: relative;/*нужно, чтобы псевдоэлемент ::before (дальше) позиционировался относительно .bck-img.*/
+    background-image: url("img/frame2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;/*убирает всё, что может вылезать за границы*/
+}
+
+/*3frame*/
+.bck3-img{
+    position: relative;/*нужно, чтобы псевдоэлемент ::before (дальше) позиционировался относительно .bck-img.*/
+    background-image: url("img/frame3.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;/*убирает всё, что может вылезать за границы*/
+}
+
+/*4frame*/
+.bck4-img{
+    position: relative;/*нужно, чтобы псевдоэлемент ::before (дальше) позиционировался относительно .bck-img.*/
+    background-image: url("img/Frame\ 30.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;/*убирает всё, что может вылезать за границы*/
+}
+.background1{
+    position: relative;/*нужно, чтобы псевдоэлемент ::before (дальше) позиционировался относительно .bck-img.*/
+    background-image: url("img/frame11.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;/*убирает всё, что может вылезать за границы*/
+}
+
+.text1{
+    display: flex;
+    color:#fff;
+    justify-content:left;
+    text-align: left;
+    font-family: "IBM Plex Mono", monospace;
+    flex-direction: column;
+    margin:150px 100px;
+    font-size: 16px;
+}
+.text11{
+    display: flex;
+    color:#fff;
+    justify-content:left;
+    text-align: left;
+    font-family: "IBM Plex Mono", monospace;
+    flex-direction: column;
+    margin:150px 100px;
+    font-size: 16px;
+}
+
+
+.background-black{
+    position: relative;/*нужно, чтобы псевдоэлемент ::before (дальше) позиционировался относительно .bck-img.*/
+    background-image: url("img/Frame\ 12.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;/*убирает всё, что может вылезать за границы*/
+}
+.background-bl{
+    position: relative;/*нужно, чтобы псевдоэлемент ::before (дальше) позиционировался относительно .bck-img.*/
+    background-image: url("img/Frame\ 12.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;/*убирает всё, что может вылезать за границы*/
+}
+.frame12{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right:50px;
+}
+.frame21{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right:50px;
+}
+.frame13{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 70px;
+}
+.frame14{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right:40px;
+}
+.photo{
+    width:550px;
+    height:350px;
+
+}
+
+.background2{
+    position: relative;/*нужно, чтобы псевдоэлемент ::before (дальше) позиционировался относительно .bck-img.*/
+    background-image: url("img/Frame\ 21.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;/*убирает всё, что может вылезать за границы*/
+}
+.background3{
+    position: relative;/*нужно, чтобы псевдоэлемент ::before (дальше) позиционировался относительно .bck-img.*/
+    background-image: url("img/Frame\ 31.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;/*убирает всё, что может вылезать за границы*/
+}
+
+.text2{
+    display: flex;
+    color:#fff;
+    justify-content:right;
+    text-align: left;
+    font-family: "IBM Plex Mono", monospace;
+    flex-direction: column;
+    margin:150px 100px;
+    font-size: 16px;
+}
+.frame15{
+    display: flex;
+    flex-direction:row-reverse;
+    align-items: center;
+    margin-left:70px;
+}
+.frame16{
+    display: flex;
+    flex-direction:row-reverse;
+    align-items: center;
+    margin-left:770px;
+}
+  .year {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    scroll-snap-align: start;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .year:nth-child(even) {
+    background: #e0e0e0;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    width: 100vw;
+    height: 100vh;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+.decade1, .decade2, .decade3, .decade4 {
+    flex: 0 0 100vw;
+    min-height: 100vh;
+    max-height: none;
+    overflow-y: auto;
+    scroll-snap-align: start;
+    background: linear-gradient(to bottom, #f0f0f0, #d0d0d0);
+    border-right: 2px solid #aaa;
+}
+  .info-panel {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 40vh;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 20px;
+    transition: bottom 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.info-panel.active {
+    bottom: 0;
+}
+
+.close-info {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: white;
+    color: black;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.info-content {
+    padding: 15px;
+}
+/* Сначала кнопки зафиксированы */
+.fixed-menu {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: white;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  /* Контент скрыт по умолчанию */
+  .decade {
+    display: none;
+    padding-top: 100px; /* отступ для фиксации */
+  }
+  
+  /* При активации десятилетия */
+  .decade.active {
+    display: block;
+  }
+  
+  /* Когда навигация должна исчезнуть */
+  .fixed-menu.hide {
+    position: static;
+  }
+
+/*футер*/
+.footer-abs{
+    display:flex;
+    justify-content:flex-start;
+    flex-direction: column;
+    color:#fff;
+    margin-left:90px;
+    gap:25px;
+    margin-top:60px;
+}
+.grid-footer{
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+    grid-row-gap:15px;
+}
+.gird-tex{
+    color:#fff;
+}
+.gird-text{
+    color:#fff;
+    transition: color 0.3 ease;
+}
+.gird-text:hover{
+    color:rgb(255, 210, 106) ;
+}
+.text{
+    text-align:left;
+    color: #fff;
+}
+.footer-select{
+    display:flex;
+    justify-content: flex-start;
+    margin-top:40px;
+    margin-bottom:70px;
+    margin-left:90px;
+}
+.footer{
+    position: relative;/*нужно, чтобы псевдоэлемент ::before (дальше) позиционировался относительно .bck-img.*/
+    background-image: url("img/footer2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    max-height: 100vh;
+    overflow: hidden;/*убирает всё, что может вылезать за границы*/
+}
