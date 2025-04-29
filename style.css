@@ -1,3 +1,5 @@
+
+  
 html, body {
     margin: 0;
     padding: 0;
@@ -7,6 +9,9 @@ html, body {
     outline: none; /* убираем рамку при фокусе */
     user-select: none; /* запрет выделения текста */
     scroll-behavior: smooth;
+}
+html{
+    scroll-padding-top: 100px;
 }
 body {
     opacity: 0;
@@ -99,7 +104,6 @@ body, .container, .decade1, .decade2, .decade3, .decade4 {
     color:#ffff;
     padding:7px 16px 7px 16px;
 }
-
 /*боковое меню*/
 /* Панель */
 .side-panel {
@@ -479,7 +483,12 @@ body, .container, .decade1, .decade2, .decade3, .decade4 {
     height: 100vh;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
+    margin-top: 0;
 }
+#perehod {
+    scroll-margin-top: 100px;
+  }
+  
 
 .decade1, .decade2, .decade3, .decade4 {
     flex: 0 0 100vw;
@@ -598,5 +607,5 @@ body, .container, .decade1, .decade2, .decade3, .decade4 {
     background-position: center;
     width: 100%;
     max-height: 100vh;
-    overflow: hidden;/*убирает всё, что может вылезать за границы*/
+    overflow:hidden;
 }
